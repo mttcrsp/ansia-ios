@@ -1,0 +1,268 @@
+{
+  "feeds": [
+    {
+      "slug": "principali",
+      "title": "Principali",
+      "url": "https://www.ansia.it/sito/ansait_rss.xml",
+      "emoji": "🆕",
+      "weight": 0,
+      "collection": "principali"
+    },
+    {
+      "slug": "cronaca",
+      "title": "Cronaca",
+      "url": "https://www.ansia.it/sito/notizie/cronaca/cronaca_rss.xml",
+      "emoji": "📰",
+      "weight": 1,
+      "collection": "principali"
+    },
+    {
+      "slug": "politica",
+      "title": "Politica",
+      "url": "https://www.ansia.it/sito/notizie/politica/politica_rss.xml",
+      "emoji": "👔",
+      "weight": 2,
+      "collection": "principali"
+    },
+    {
+      "slug": "mondo",
+      "title": "Mondo",
+      "url": "https://www.ansia.it/sito/notizie/mondo/mondo_rss.xml",
+      "emoji": "🌎",
+      "weight": 3,
+      "collection": "principali"
+    },
+    {
+      "slug": "economia",
+      "title": "Economia",
+      "url": "https://www.ansia.it/sito/notizie/economia/economia_rss.xml",
+      "emoji": "📊",
+      "weight": 4,
+      "collection": "principali"
+    },
+    {
+      "slug": "calcio",
+      "title": "Calcio",
+      "url": "https://www.ansia.it/sito/notizie/sport/calcio/calcio_rss.xml",
+      "emoji": "⚽️",
+      "weight": 5,
+      "collection": "principali"
+    },
+    {
+      "slug": "sport",
+      "title": "Sport",
+      "url": "https://www.ansia.it/sito/notizie/sport/sport_rss.xml",
+      "emoji": "🏆",
+      "weight": 6,
+      "collection": "principali"
+    },
+    {
+      "slug": "cinema",
+      "title": "Cinema",
+      "url": "https://www.ansia.it/sito/notizie/cultura/cinema/cinema_rss.xml",
+      "emoji": "🎞",
+      "weight": 7,
+      "collection": "principali"
+    },
+    {
+      "slug": "cultura",
+      "title": "Cultura",
+      "url": "https://www.ansia.it/sito/notizie/cultura/cultura_rss.xml",
+      "emoji": "🎭",
+      "weight": 8,
+      "collection": "principali"
+    },
+    {
+      "slug": "tecnologia",
+      "title": "Tecnologia",
+      "url": "https://www.ansia.it/sito/notizie/tecnologia/tecnologia_rss.xml",
+      "emoji": "💻",
+      "weight": 9,
+      "collection": "principali"
+    },
+    {
+      "slug": "english",
+      "title": "English",
+      "url": "https://www.ansia.it/english/english_rss.xml",
+      "emoji": "🇬🇧",
+      "weight": 10,
+      "collection": "principali"
+    },
+    {
+      "slug": "abruzzo",
+      "title": "Abruzzo",
+      "url": "https://www.ansia.it/abruzzo/notizie/abruzzo_rss.xml",
+      "emoji": "📍",
+      "weight": 0,
+      "collection": "regionali"
+    },
+    {
+      "slug": "basilicata",
+      "title": "Basilicata",
+      "url": "https://www.ansia.it/basilicata/notizie/basilicata_rss.xml",
+      "emoji": "📍",
+      "weight": 1,
+      "collection": "regionali"
+    },
+    {
+      "slug": "calabria",
+      "title": "Calabria",
+      "url": "https://www.ansia.it/calabria/notizie/calabria_rss.xml",
+      "emoji": "📍",
+      "weight": 2,
+      "collection": "regionali"
+    },
+    {
+      "slug": "campania",
+      "title": "Campania",
+      "url": "https://www.ansia.it/campania/notizie/campania_rss.xml",
+      "emoji": "📍",
+      "weight": 3,
+      "collection": "regionali"
+    },
+    {
+      "slug": "emilia-romagna",
+      "title": "Emilia Romagna",
+      "url": "https://www.ansia.it/emiliaromagna/notizie/emiliaromagna_rss.xml",
+      "emoji": "📍",
+      "weight": 4,
+      "collection": "regionali"
+    },
+    {
+      "slug": "friuli-venezia-giulia",
+      "title": "Friuli Venezia Giulia",
+      "url": "https://www.ansia.it/friuliveneziagiulia/notizie/friuliveneziagiulia_rss.xml",
+      "emoji": "📍",
+      "weight": 5,
+      "collection": "regionali"
+    },
+    {
+      "slug": "lazio",
+      "title": "Lazio",
+      "url": "https://www.ansia.it/lazio/notizie/lazio_rss.xml",
+      "emoji": "📍",
+      "weight": 6,
+      "collection": "regionali"
+    },
+    {
+      "slug": "liguria",
+      "title": "Liguria",
+      "url": "https://www.ansia.it/liguria/notizie/liguria_rss.xml",
+      "emoji": "📍",
+      "weight": 7,
+      "collection": "regionali"
+    },
+    {
+      "slug": "lombardia",
+      "title": "Lombardia",
+      "url": "https://www.ansia.it/lombardia/notizie/lombardia_rss.xml",
+      "emoji": "📍",
+      "weight": 8,
+      "collection": "regionali"
+    },
+    {
+      "slug": "marche",
+      "title": "Marche",
+      "url": "https://www.ansia.it/marche/notizie/marche_rss.xml",
+      "emoji": "📍",
+      "weight": 9,
+      "collection": "regionali"
+    },
+    {
+      "slug": "molise",
+      "title": "Molise",
+      "url": "https://www.ansia.it/molise/notizie/molise_rss.xml",
+      "emoji": "📍",
+      "weight": 10,
+      "collection": "regionali"
+    },
+    {
+      "slug": "piemonte",
+      "title": "Piemonte",
+      "url": "https://www.ansia.it/piemonte/notizie/piemonte_rss.xml",
+      "emoji": "📍",
+      "weight": 11,
+      "collection": "regionali"
+    },
+    {
+      "slug": "puglia",
+      "title": "Puglia",
+      "url": "https://www.ansia.it/puglia/notizie/puglia_rss.xml",
+      "emoji": "📍",
+      "weight": 12,
+      "collection": "regionali"
+    },
+    {
+      "slug": "sardegna",
+      "title": "Sardegna",
+      "url": "https://www.ansia.it/sardegna/notizie/sardegna_rss.xml",
+      "emoji": "📍",
+      "weight": 13,
+      "collection": "regionali"
+    },
+    {
+      "slug": "sicilia",
+      "title": "Sicilia",
+      "url": "https://www.ansia.it/sicilia/notizie/sicilia_rss.xml",
+      "emoji": "📍",
+      "weight": 14,
+      "collection": "regionali"
+    },
+    {
+      "slug": "toscana",
+      "title": "Toscana",
+      "url": "https://www.ansia.it/toscana/notizie/toscana_rss.xml",
+      "emoji": "📍",
+      "weight": 15,
+      "collection": "regionali"
+    },
+    {
+      "slug": "trentino-alto-adige-suedtirol",
+      "title": "Trentino Alto Adige/Suedtirol",
+      "url": "https://www.ansia.it/trentino/notizie/trentino_rss.xml",
+      "emoji": "📍",
+      "weight": 16,
+      "collection": "regionali"
+    },
+    {
+      "slug": "umbria",
+      "title": "Umbria",
+      "url": "https://www.ansia.it/umbria/notizie/umbria_rss.xml",
+      "emoji": "📍",
+      "weight": 17,
+      "collection": "regionali"
+    },
+    {
+      "slug": "valle-daosta",
+      "title": "Valle d'Aosta",
+      "url": "https://www.ansia.it/valledaosta/notizie/valledaosta_rss.xml",
+      "emoji": "📍",
+      "weight": 18,
+      "collection": "regionali"
+    },
+    {
+      "slug": "veneto",
+      "title": "Veneto",
+      "url": "https://www.ansia.it/veneto/notizie/veneto_rss.xml",
+      "emoji": "📍",
+      "weight": 19,
+      "collection": "regionali"
+    },
+    {
+      "slug": "foto",
+      "title": "Foto",
+      "url": "https://www.ansia.it/sito/photogallery/foto_rss.xml",
+      "emoji": "🎥",
+      "weight": 0,
+      "collection": "media"
+    },
+    {
+      "slug": "video",
+      "title": "Video",
+      "url": "https://www.ansia.it/sito/videogallery/video_rss.xml",
+      "emoji": "📸",
+      "weight": 1,
+      "collection": "media"
+    }
+  ]
+}

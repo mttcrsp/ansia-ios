@@ -1,0 +1,45 @@
+{
+  "articles": [
+    {
+      "keywords": [
+        "phishing",
+        "Polizia-di-Stato",
+        "truffa",
+        "minaccia",
+        "esperto",
+        "acquisto",
+        "allerta",
+        "messaggio",
+        "pacco"
+      ],
+      "article_id": "716919b5-4bd3-5b61-a373-099b3fc782dc",
+      "title": "Attenzione alle mail per pacchi non consegnati, è phishing",
+      "description": "Polizia, cliccando su link per scegliere orario, furto dati personali",
+      "url": "https://www.ansia.it/sito/notizie/tecnologia/internet_social/2022/12/16/polizia-attenzione-a-mail-pacchi-non-consegnati-e-phishing_72c264a2-726c-48e6-b882-56ff7eb003d9.html",
+      "published_at": "2022-12-16T16:56:51+01:00",
+      "feed": "tecnologia",
+      "content": "In vista del Natale arriva la truffa del pacco in giacenza, che sfrutta gli acquisti online più numerosi a ridosso delle feste. Arriva tramite mail o messaggio in cui c'è scritto che la consegna di un fantomatico pacco è in arrivo e per programmare l'orario è necessario inserire i propri dati, cliccando su un link che ovviamente è fraudolento. L'allarme arriva dal profilo Twitter della Polizia di Stato: \"Attenzione alle mail che vi avvisano di non essere riusciti a consegnare un pacco e di cliccare per scegliere l'orario in cui riceverlo. Si tratta di #phishing e quindi cliccando verranno rubate le informazioni personali\". Al tweet è allegata, a dimostrazione, la foto di un messaggio-tipo di questa truffa.",
+      "image_url": "https://www.ansia.it/webimages/img_700/2017/11/28/9bd7d62860e6842b3bb7626851bc8370.jpg"
+    },
+    {
+      "keywords": [
+        "commissione",
+        "abuso-di-posizione-dominante",
+        "azienda",
+        "concorrenza",
+        "Facebook-Marketplace",
+        "norma",
+        "pratica",
+        "parere"
+      ],
+      "article_id": "22cf56bc-433b-58bd-b042-81428e5209d1",
+      "title": "Commissione Ue a Meta, 'abuso di posizione dominante'",
+      "description": "Parere preliminare su violazione norme antitrust su pubblicità",
+      "url": "https://www.ansia.it/sito/notizie/tecnologia/tlc/2022/12/19/commissione-ue-a-meta-abuso-di-posizione-dominante_b8d2584c-65a0-4557-a6aa-62d5676dfb8e.html",
+      "published_at": "2022-12-19T15:55:39+01:00",
+      "feed": "tecnologia",
+      "content": "La Commissione europea ha informato Meta del suo parere preliminare secondo cui l'azienda ha violato le norme antitrust dell'Ue distorcendo la concorrenza nei mercati pubblicitario online. La Commissione non condivide il fatto che Meta leghi il suo servizio di annunci online, Facebook Marketplace, al suo social network personale, Facebook. La Commissione teme inoltre che Meta imponga condizioni commerciali sleali ai concorrenti di Facebook Marketplace a proprio vantaggio. Se confermate, queste pratiche violerebbero l'articolo 102 del Trattato sul funzionamento dell'Unione europea (\"TFUE\") che vieta l'abuso di posizione dominante.",
+      "image_url": "https://www.ansia.it/webimages/img_700/2022/11/9/9fdbe4a01e95a5c220adfb90e97fd497.jpg"
+    }
+  ]
+}

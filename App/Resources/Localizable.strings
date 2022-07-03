@@ -1,0 +1,71 @@
+/// MARK: - Article
+"article.share" = "Condividi";
+"article.publishedAt" = "Pubblicato %@ alle %@";
+
+/// MARK: - Image
+"image.dismiss" = "Chiudi";
+
+/// MARK: - Local
+"local.editRegion" = "Modifica";
+"local.selectRegion" = "Seleziona regione";
+
+/// MARK: - More
+"more.tab" = "Cerca";
+"more.bookmarks" = "Salvati";
+"more.recents" = "Visti di recente";
+"more.settings" = "Impostazioni";
+"more.allBookmarks" = "Tutti gli articoli salvati";
+"more.allRecents" = "Tutti gli articoli visualizzati";
+
+/// MARK: - Onboarding
+"onboarding.atLeastXSections" = "Seleziona almeno %d sezioni";
+"onboarding.confirm" = "Continua";
+"onboarding.continue" = "Ok";
+"onboarding.pickSections" = "Seleziona le sezioni che trovi più interessanti";
+"onboarding.title" = "Ansia!";
+
+/// MARK: - Onboarding Sections
+"onboardingSections.message" = "Seleziona i temi che trovi più interessanti per ricevere notizie personalizzate";
+
+/// MARK: - Region Onboarding
+"regionOnboarding.title" = "Notizie regionali";
+"regionOnboarding.message" = "Resta al passo con quello che succede vicino a te. Scopri eventi, problematiche e cambiamenti che coinvolgono la tua comunità.";
+"regionOnboarding.dismiss" = "Non ora";
+"regionOnboarding.confirm" = "Seleziona regione";
+
+/// MARK: - Region Selection
+"regionSelection.title" = "Seleziona regione";
+"regionSelection.confirm" = "Conferma";
+"regionSelection.dismiss" = "Annulla";
+
+/// MARK: - Search
+"search.cancel" = "Annulla";
+"search.prompt" = "Cerca";
+
+/// MARK: - Settings
+"settings.title" = "Impostazioni";
+"settings.region" = "Regione";
+"settings.sections" = "Sezioni";
+"settings.notifications" = "Notifiche";
+"settings.exportDatabase" = "Esporta database";
+
+/// MARK: - Settings Notifications
+"settingsNotifications.all" = "Attiva notifiche push";
+"settingsNotifications.videoDay" = "Ansa Live edizione giorno";
+"settingsNotifications.videoNight" = "Ansa Live edizione sera";
+
+/// MARK: - Today
+"today.tab" = "Ultime notizie";
+"today.watchNow" = "Guarda ora";
+"today.thatsAll" = "Questo é tutto! ✨";
+
+/// MARK: - Video Onboarding
+"videoOnboarding.title" = "Resta al passo";
+"videoOnboarding.message" = "Ricevi una notifica quando la nuova edizione del giornale video diventa disponibile. Non ti disturberemo per altre ragioni!";
+"videoOnboarding.confirm" = "Attiva notifiche";
+"videoOnboarding.dismiss" = "Annulla";
+
+/// MARK: - Video Notification
+"videoNotification.titleDay" = "Ansa Live edizione Giorno";
+"videoNotification.titleNight" = "Ansa Live edizione Sera";
+"videoNotification.body" = "Nuova edizione videogiornale disponibile";

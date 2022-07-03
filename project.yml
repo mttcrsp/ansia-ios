@@ -1,0 +1,146 @@
+name: Ansia
+
+options:
+  bundleIdPrefix: com.mttcrsp.ansia
+  createIntermediateGroups: true
+  transitivelyLinkDependencies: true
+  preGenCommand: make run_swiftgen
+
+settings:
+  CURRENT_PROJECT_VERSION: 1
+  DEAD_CODE_STRIPPING: "YES"
+  DEVELOPMENT_TEAM: "3CM92FF2C5"
+  ENABLE_BITCODE: "NO"
+  GENERATE_INFOPLIST_FILE: YES
+  INFOPLIST_KEY_UILaunchScreen_Generation: YES
+  MARKETING_VERSION: 1.0
+  OTHER_LDFLAGS: "$(inherited) -Xlinker -interposable"
+
+targets:
+  App:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources:
+      - App/Sources
+      - App/Resources
+    dependencies:
+      - target: Core
+      - target: DesignSystem
+      - framework: Vendor/_SwiftUINavigationState.xcframework
+      - framework: Vendor/CasePaths.xcframework
+      - framework: Vendor/Clocks.xcframework
+      - framework: Vendor/CombineSchedulers.xcframework
+      - framework: Vendor/ComposableArchitecture.xcframework
+      - framework: Vendor/CustomDump.xcframework
+      - framework: Vendor/Dependencies.xcframework
+      - framework: Vendor/IdentifiedCollections.xcframework
+      - framework: Vendor/OrderedCollections.xcframework
+      - framework: Vendor/XCTestDynamicOverlay.xcframework
+    scheme:
+      testTargets:
+        - AppTests
+        - AppSnapshotTests
+      coverageTargets:
+        - App
+      gatherCoverageData: true
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
+  AppTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources:
+      - App/Tests
+      - Core/Tests/Resources
+    dependencies:
+      - target: App
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
+  AppSnapshotTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources:
+      - path: App/SnapshotTests
+        excludes: ["__Snapshots__"]
+      - Core/Tests/Resources
+    dependencies:
+      - target: App
+      - framework: Vendor/HammerTests.xcframework
+      - framework: Vendor/SnapshotTesting.xcframework
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
+  Core:
+    type: framework
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources: [Core/Sources]
+    dependencies:
+      - framework: Vendor/GRDB.xcframework
+      - framework: Vendor/Tagged.xcframework
+    settings:
+      ENABLE_TESTING_SEARCH_PATHS: true
+    scheme:
+      testTargets:
+        - CoreTests
+      coverageTargets:
+        - Core
+      gatherCoverageData: true
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
+  CoreTests:
+    type: bundle.unit-test
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources: [Core/Tests]
+    dependencies:
+      - target: Core
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
+  DesignSystem:
+    type: framework
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources:
+      - DesignSystem/Sources
+      - DesignSystem/Resources
+    dependencies:
+      - framework: Vendor/AsyncDisplayKit.xcframework
+      - framework: Vendor/IGListKit.xcframework
+      - framework: Vendor/IGListDiffKit.xcframework
+      - framework: Vendor/IGListSwiftKit.xcframework
+      - framework: Vendor/PINRemoteImage.xcframework
+      - framework: Vendor/PINOperation.xcframework
+      - framework: Vendor/PINCache.xcframework
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
+  DesignSystemSample:
+    type: application
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources: DesignSystem/Sample
+    dependencies:
+      - target: DesignSystem
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
