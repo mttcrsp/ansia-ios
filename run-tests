@@ -1,0 +1,7 @@
+#!/bin/sh
+xcodebuild \
+  -project Ansia.xcodeproj \
+  -scheme Tests \
+  -sdk iphonesimulator \
+  -destination 'platform=iOS Simulator,name=iPhone 12,OS=15.2' \
+  test | xcbeautify && exit ${PIPESTATUS[0]}

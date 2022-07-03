@@ -1,0 +1,8 @@
+ignore:
+  - "Tests/"
+  - "SnapshotTests/"
+  - "UITests/"
+coverage:
+  status:
+    patch: off
+    project: off

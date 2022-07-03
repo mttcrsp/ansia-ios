@@ -1,0 +1,7 @@
+#!/bin/sh
+mockolo \
+  -s Sources/ \
+  -d Mocks/Mockolo.swift \
+  -i Ansia \
+  --mock-final \
+  --enable-args-history
