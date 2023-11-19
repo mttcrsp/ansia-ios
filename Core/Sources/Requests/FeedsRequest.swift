@@ -3,6 +3,6 @@ public struct FeedsRequest: NetworkRequest, Hashable {
     public let feeds: [Feed]
   }
 
-  public let path = "v1/feeds"
+  public let path = "/v1/feeds"
   public init() {}
 }

@@ -9,6 +9,6 @@ public struct ArticlesByFeedRequest: NetworkRequest, Hashable {
   }
 
   public var path: String {
-    "v1/feeds/\(slug)/articles"
+    "/v1/feeds/\(slug)/articles"
   }
 }

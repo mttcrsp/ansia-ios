@@ -10,7 +10,7 @@ public struct ArticlesByQueryRequest: NetworkRequest {
     self.query = query
   }
 
-  public let path = "v1/articles"
+  public let path = "/v1/articles"
   public var queryItems: [URLQueryItem] {
     [.init(name: "query", value: query)]
   }

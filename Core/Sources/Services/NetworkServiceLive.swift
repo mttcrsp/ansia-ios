@@ -41,14 +41,12 @@ private extension NetworkRequest {
   }
 
   var url: URL {
-    #if targetEnvironment(macCatalyst)
-    let url = URL.base.appendingPathComponent(path)
-    #else
-    let url = URL.base.appending(components: path)
-    #endif
-    var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
-    components?.queryItems = queryItems
-    return components?.url ?? url
+    var components = URLComponents(url: .base, resolvingAgainstBaseURL: false)
+    components?.path = path
+    if !queryItems.isEmpty {
+      components?.queryItems = queryItems
+    }
+    return components?.url ?? URL.base
   }
 }
 

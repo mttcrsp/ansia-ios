@@ -3,6 +3,6 @@ public struct VideosRequest: NetworkRequest, Hashable {
     public let videos: [Video]
   }
 
-  public let path = "v1/videos"
+  public let path = "/v1/videos"
   public init() {}
 }
