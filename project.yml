@@ -81,6 +81,24 @@ targets:
         name: SwiftFormat
         basedOnDependencyAnalysis: false
 
+  Widget:
+    type: app-extension
+    platform: iOS
+    deploymentTarget: "16.2"
+    sources:
+      - Widget/Sources
+      - Widget/Resources
+    dependencies:
+      - target: Core
+      - target: DesignSystem
+    settings:
+      INFOPLIST_FILE: Widget/Resources/Info.plist
+      PRODUCT_BUNDLE_IDENTIFIER: com.mttcrsp.ansia.widget
+    preBuildScripts:
+      - script: make run_swiftformat
+        name: SwiftFormat
+        basedOnDependencyAnalysis: false
+
   Core:
     type: framework
     platform: iOS

@@ -12,7 +12,7 @@ project:
 
 run_swiftformat::
 	if [ -z "$(IS_CI)" ]; then \
-		swiftformat App Core DesignSystem; \
+		swiftformat App Core DesignSystem Widget; \
 	fi
 
 run_swiftgen:
