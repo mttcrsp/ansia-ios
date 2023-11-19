@@ -22,7 +22,7 @@ class TodayViewController: ASDKViewController<ASCollectionNode> {
 
   init(store: StoreOf<TodayReducer>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
 
     let collectionLayout = UICollectionViewFlowLayout()
     let collectionNode = ASCollectionNode(collectionViewLayout: collectionLayout)

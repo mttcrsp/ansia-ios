@@ -11,7 +11,7 @@ struct NotificationsConfiguration: Equatable {
   var isVideoNightEnabled = false
 }
 
-struct NotificationsReducer: ReducerProtocol {
+struct NotificationsReducer: Reducer {
   struct State: Equatable {
     var notificationsStatus = NotificationsStatus.disabled
     var shouldReload = false
@@ -33,8 +33,10 @@ struct NotificationsReducer: ReducerProtocol {
   @Dependency(\.notificationsClient) var notificationsClient
   @Dependency(\.preferencesClient) var preferencesClient
 
-  func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    struct CancelLoading {}
+  func reduce(into state: inout State, action: Action) -> Effect<Action> {
+    enum CancelID {
+      case applicationStateObservation
+    }
 
     switch action {
     case .didLoad:
@@ -45,10 +47,10 @@ struct NotificationsReducer: ReducerProtocol {
             await send(.applicationStateChanged(change))
           }
         }
-        .cancellable(id: CancelLoading.self)
+        .cancellable(id: CancelID.applicationStateObservation)
       )
     case .didUnload:
-      return .cancel(id: CancelLoading.self)
+      return .cancel(id: CancelID.applicationStateObservation)
 
     case let .applicationStateChanged(change):
       guard change.to == .foreground else {
@@ -70,7 +72,7 @@ struct NotificationsReducer: ReducerProtocol {
 
     case let .allNotificationsToggled(enabled):
       return .concatenate(
-        .fireAndForget {
+        .run { _ in
           preferencesClient.setNotificationsDisabled(!enabled)
           guard enabled else {
             return notificationsClient.removeAllRequests()
@@ -100,7 +102,7 @@ struct NotificationsReducer: ReducerProtocol {
     }
   }
 
-  private func reloadStatus() -> EffectTask<Action> {
+  private func reloadStatus() -> Effect<Action> {
     .run { send in
       if preferencesClient.areNotificationsDisabled() {
         await send(.notificationsStatusChanged(.disabled))
@@ -111,8 +113,8 @@ struct NotificationsReducer: ReducerProtocol {
     }
   }
 
-  private func toggleNotificationRequest(_ request: VideoNotificationRequest, enabled: Bool) -> EffectTask<Action> {
-    .fireAndForget {
+  private func toggleNotificationRequest(_ request: VideoNotificationRequest, enabled: Bool) -> Effect<Action> {
+    .run { _ in
       if enabled {
         try await notificationsClient.addRequest(request)
       } else {

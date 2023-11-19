@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Core
 import Foundation
 
-struct SettingsReducer: ReducerProtocol {
+struct SettingsReducer: Reducer {
   struct State: Equatable {
     var applicationBuild: String?
     var applicationVersion: String?
@@ -29,8 +29,10 @@ struct SettingsReducer: ReducerProtocol {
   @Dependency(\.favoritesClient) var favoritesClient
   @Dependency(\.persistenceClient) var persistenceClient
 
-  func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    struct CancelLoading {}
+  func reduce(into state: inout State, action: Action) -> Effect<Action> {
+    enum CancelID {
+      case loading
+    }
 
     switch action {
     case .didLoad:
@@ -78,9 +80,9 @@ struct SettingsReducer: ReducerProtocol {
           }
         }
       )
-      .cancellable(id: CancelLoading.self)
+      .cancellable(id: CancelID.loading)
     case .didUnload:
-      return .cancel(id: CancelLoading.self)
+      return .cancel(id: CancelID.loading)
 
     case let .favoriteRegionSelected(region):
       favoritesClient.setFavoriteRegion(region?.slug)

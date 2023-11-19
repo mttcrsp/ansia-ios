@@ -27,7 +27,7 @@ final class NotificationsViewController: UITableViewController {
   private var sections: [Section] = []
 
   init(store: StoreOf<NotificationsReducer>) {
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     super.init(style: .grouped)
     navigationItem.standardAppearance = .opaque
     title = L10n.Settings.notifications

@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Core
 import Foundation
 
-struct ArticleReducer: ReducerProtocol {
+struct ArticleReducer: Reducer {
   struct State: Equatable, Hashable {
     let article: Article
     var showsBookmark = false
@@ -19,8 +19,10 @@ struct ArticleReducer: ReducerProtocol {
   @Dependency(\.date) var date
   @Dependency(\.persistenceClient) var persistenceClient
 
-  func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    enum CancelLoading {}
+  func reduce(into state: inout State, action: Action) -> Effect<Action> {
+    enum CancelID {
+      case bookmarksObservation
+    }
 
     switch action {
     case .didLoad:
@@ -29,12 +31,12 @@ struct ArticleReducer: ReducerProtocol {
           await send(.bookmarkStatusChanged(bookmark))
         }
       }
-      .cancellable(id: CancelLoading.self)
+      .cancellable(id: CancelID.bookmarksObservation)
     case .didUnload:
-      return .cancel(id: CancelLoading.self)
+      return .cancel(id: CancelID.bookmarksObservation)
 
     case .didAppear:
-      return .fireAndForget { [state] in
+      return .run { [state] _ in
         let recent = Recent(article: state.article, createdAt: date.now)
         try await persistenceClient.upsertRecent(recent)
       }
@@ -44,7 +46,7 @@ struct ArticleReducer: ReducerProtocol {
       return .none
 
     case .bookmarkStatusToggled:
-      return .fireAndForget { [state] in
+      return .run { [state] _ in
         if state.showsBookmark {
           try await persistenceClient.deleteBookmark(state.article.articleID)
         } else {

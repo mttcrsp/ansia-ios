@@ -11,7 +11,7 @@ class ArticleViewController: ASDKViewController<ASScrollNode> {
   private var cancellables: Set<AnyCancellable> = []
 
   init(store: StoreOf<ArticleReducer>) {
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
 
     super.init(node: .init())
 

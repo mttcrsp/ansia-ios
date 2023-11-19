@@ -15,7 +15,7 @@ final class RootViewController: CrossDissolveViewController {
 
   init(store: StoreOf<RootReducer>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     super.init(nibName: nil, bundle: nil)
   }
 

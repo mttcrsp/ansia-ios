@@ -18,7 +18,7 @@ final class MoreViewController: ASDKViewController<ASCollectionNode> {
 
   init(store: StoreOf<MoreReducer>) {
     self.store = store
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
 
     let collectionLayout = UICollectionViewFlowLayout()
     let collectionNode = ASCollectionNode(collectionViewLayout: collectionLayout)

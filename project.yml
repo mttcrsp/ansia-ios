@@ -27,15 +27,16 @@ targets:
     dependencies:
       - target: Core
       - target: DesignSystem
-      - framework: Vendor/_SwiftUINavigationState.xcframework
       - framework: Vendor/CasePaths.xcframework
       - framework: Vendor/Clocks.xcframework
       - framework: Vendor/CombineSchedulers.xcframework
       - framework: Vendor/ComposableArchitecture.xcframework
+      - framework: Vendor/ConcurrencyExtras.xcframework
       - framework: Vendor/CustomDump.xcframework
       - framework: Vendor/Dependencies.xcframework
       - framework: Vendor/IdentifiedCollections.xcframework
       - framework: Vendor/OrderedCollections.xcframework
+      - framework: Vendor/SwiftUINavigationCore.xcframework
       - framework: Vendor/XCTestDynamicOverlay.xcframework
     scheme:
       testTargets:
@@ -73,7 +74,7 @@ targets:
       - Core/Tests/Resources
     dependencies:
       - target: App
-      - framework: Vendor/HammerTests.xcframework
+      - framework: Vendor/Hammer.xcframework
       - framework: Vendor/SnapshotTesting.xcframework
     preBuildScripts:
       - script: make run_swiftformat

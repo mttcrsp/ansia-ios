@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Core
 
-struct OnboardingReducer: ReducerProtocol {
+struct OnboardingReducer: Reducer {
   struct State: Equatable {
     var didFail = false
     var sections: [Feed] = []
@@ -26,8 +26,10 @@ struct OnboardingReducer: ReducerProtocol {
 
   private let minSectionsCount = 3
 
-  func reduce(into state: inout State, action: Action) -> EffectTask<Action> {
-    struct CancelFeedsID {}
+  func reduce(into state: inout State, action: Action) -> Effect<Action> {
+    enum CancelID {
+      case feedsObservation
+    }
 
     switch action {
     case .didLoad:
@@ -38,10 +40,10 @@ struct OnboardingReducer: ReducerProtocol {
             await send(.sectionsChanged(sections))
           }
         }
-        .cancellable(id: CancelFeedsID.self)
+        .cancellable(id: CancelID.feedsObservation)
       )
     case .didUnload:
-      return .cancel(id: CancelFeedsID.self)
+      return .cancel(id: CancelID.feedsObservation)
     case let .sectionsChanged(sections):
       state.sections = sections
       return .none
@@ -65,7 +67,7 @@ struct OnboardingReducer: ReducerProtocol {
     }
   }
 
-  private func updateSections() -> EffectTask<Action> {
+  private func updateSections() -> Effect<Action> {
     .run { _ in
       let feeds = try await networkClient.getFeeds()
       try await persistenceClient.updateFeeds(feeds)
@@ -74,7 +76,7 @@ struct OnboardingReducer: ReducerProtocol {
     }
   }
 
-  private func handleInvalidConfirm(_ state: inout State) -> EffectTask<Action> {
+  private func handleInvalidConfirm(_ state: inout State) -> Effect<Action> {
     let title = L10n.Onboarding.atLeastXSections(minSectionsCount)
     state.minimumSectionsAlert = .init(
       title: TextState(title),
@@ -88,7 +90,7 @@ struct OnboardingReducer: ReducerProtocol {
     return .none
   }
 
-  private func handleValidConfirm(_ sections: [Feed]) -> EffectTask<Action> {
+  private func handleValidConfirm(_ sections: [Feed]) -> Effect<Action> {
     favoritesClient.setFavoriteSections(sections.map(\.slug))
     onboardingClient.setDidCompleteOnboarding()
     return .run { send in

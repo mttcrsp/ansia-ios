@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Core
 import Foundation
 
-struct MoreReducer: ReducerProtocol {
+struct MoreReducer: Reducer {
   struct State: Equatable {
     var article: ArticleReducer.State?
     var bookmarks: [Bookmark] = []
@@ -34,17 +34,19 @@ struct MoreReducer: ReducerProtocol {
   @Dependency(\.networkClient) var networkClient
   @Dependency(\.persistenceClient) var persistenceClient
 
-  var body: some ReducerProtocol<State, Action> {
+  var body: some ReducerOf<Self> {
     Reduce(core)
       .ifLet(\.article, action: /Action.article) {
         ArticleReducer()
       }
   }
 
-  private func core(_ state: inout State, action: Action) -> EffectTask<Action> {
-    struct CancelSearch {}
-    struct CancelObservations {}
-    struct CancelSectionArticlesObservation {}
+  private func core(_ state: inout State, action: Action) -> Effect<Action> {
+    enum CancelID {
+      case loading
+      case sectionArticlesObservation
+      case search
+    }
 
     switch action {
     case .didLoad:
@@ -65,12 +67,12 @@ struct MoreReducer: ReducerProtocol {
           }
         }
       )
-      .cancellable(id: CancelObservations.self)
+      .cancellable(id: CancelID.loading)
     case .didUnload:
-      return .cancel(ids: [
-        CancelObservations.self,
-        CancelSectionArticlesObservation.self,
-      ])
+      return .merge(
+        .cancel(id: CancelID.loading),
+        .cancel(id: CancelID.sectionArticlesObservation)
+      )
     case let .bookmarksChanged(bookmarks):
       state.bookmarks = bookmarks
       return .none
@@ -83,7 +85,7 @@ struct MoreReducer: ReducerProtocol {
 
     case let .sectionSelected(feed):
       return .merge(
-        .fireAndForget {
+        .run { _ in
           try await feedsClient.loadArticles([feed.slug])
         },
         .run { send in
@@ -92,18 +94,18 @@ struct MoreReducer: ReducerProtocol {
           }
         }
       )
-      .cancellable(id: CancelSectionArticlesObservation.self)
+      .cancellable(id: CancelID.sectionArticlesObservation)
     case let .sectionArticlesChanged(articles):
       state.sectionArticles = articles
       return .none
     case .sectionDeselected:
       state.sectionArticles = []
-      return .cancel(id: CancelSectionArticlesObservation.self)
+      return .cancel(id: CancelID.sectionArticlesObservation)
 
     case let .queryChanged(rawQuery):
       let query = rawQuery.trimmingCharacters(in: .whitespaces)
       guard query != state.query, query.count >= 3 else {
-        return .cancel(id: CancelSearch.self)
+        return .cancel(id: CancelID.search)
       }
 
       state.resultsArticles = nil
@@ -113,7 +115,7 @@ struct MoreReducer: ReducerProtocol {
         let articles = try await networkClient.getItems(query)
         await send(.resultsArticlesChanged(articles))
       }
-      .cancellable(id: CancelSearch.self, cancelInFlight: true)
+      .cancellable(id: CancelID.search, cancelInFlight: true)
     case let .resultsArticlesChanged(articles):
       state.resultsArticles = articles
       return .none

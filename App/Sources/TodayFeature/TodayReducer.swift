@@ -2,7 +2,7 @@ import ComposableArchitecture
 import Core
 import Foundation
 
-struct TodayReducer: ReducerProtocol {
+struct TodayReducer: Reducer {
   struct State: Equatable {
     var areAnimationsEnabled = false
     var article: ArticleReducer.State?
@@ -55,17 +55,19 @@ struct TodayReducer: ReducerProtocol {
   @Dependency(\.onboardingClient) var onboardingClient
   @Dependency(\.persistenceClient) var persistenceClient
 
-  var body: some ReducerProtocol<State, Action> {
+  var body: some ReducerOf<Self> {
     Reduce(core)
       .ifLet(\.article, action: /Action.article) {
         ArticleReducer()
       }
   }
 
-  private func core(_ state: inout State, action: Action) -> EffectTask<Action> {
-    struct CancelLoading {}
-    struct CancelFavoriteRegion {}
-    struct CancelFavoriteSections {}
+  private func core(_ state: inout State, action: Action) -> Effect<Action> {
+    enum CancelID {
+      case favoriteRegionObservation
+      case favoriteSectionsObservation
+      case loading
+    }
 
     switch action {
     case .didLoad:
@@ -108,12 +110,12 @@ struct TodayReducer: ReducerProtocol {
           }
         )
       )
-      .cancellable(id: CancelLoading.self)
+      .cancellable(id: CancelID.loading)
     case .didUnload:
-      return .cancel(ids: [
-        CancelLoading.self,
-        CancelFavoriteRegion.self,
-        CancelFavoriteSections.self,
+      return .cancel(id: [
+        CancelID.loading,
+        CancelID.favoriteRegionObservation,
+        CancelID.favoriteSectionsObservation,
       ])
 
     case .refreshTriggered:
@@ -123,7 +125,7 @@ struct TodayReducer: ReducerProtocol {
         ? updateAllFeedsAndVideo()
         : .none
     case let .favoriteRegionChanged(slug):
-      var effects: [EffectTask<Action>] = []
+      var effects: [Effect<Action>] = []
       if state.favoriteRegion != slug {
         state.favoriteRegion = slug
         effects.append(reloadGroups())
@@ -141,9 +143,9 @@ struct TodayReducer: ReducerProtocol {
         )
       }
       return .merge(effects)
-        .cancellable(id: CancelFavoriteRegion.self, cancelInFlight: true)
+        .cancellable(id: CancelID.favoriteRegionObservation, cancelInFlight: true)
     case let .favoriteSectionsChanged(slugs):
-      var effects: [EffectTask<Action>] = []
+      var effects: [Effect<Action>] = []
       if state.favoriteSections != slugs {
         state.favoriteSections = slugs
         effects.append(reloadGroups())
@@ -165,7 +167,7 @@ struct TodayReducer: ReducerProtocol {
         )
       }
       return .merge(effects)
-        .cancellable(id: CancelFavoriteSections.self, cancelInFlight: true)
+        .cancellable(id: CancelID.favoriteSectionsObservation, cancelInFlight: true)
 
     case let .isUpdatingChanged(isLoading):
       state.isUpdating = isLoading
@@ -254,7 +256,7 @@ struct TodayReducer: ReducerProtocol {
     return slugs
   }
 
-  private func updateAllFeedsAndVideo() -> EffectTask<Action> {
+  private func updateAllFeedsAndVideo() -> Effect<Action> {
     .concatenate(
       .run { send in await send(.isUpdatingChanged(true)) },
       .merge(updateFeeds(allFeeds), updateVideo()),
@@ -262,20 +264,20 @@ struct TodayReducer: ReducerProtocol {
     )
   }
 
-  private func updateFeeds(_ slugs: [Feed.Slug]) -> EffectTask<Action> {
-    .fireAndForget {
+  private func updateFeeds(_ slugs: [Feed.Slug]) -> Effect<Action> {
+    .run { _ in
       try await feedsClient.loadArticles(slugs)
     }
   }
 
-  private func updateVideo() -> EffectTask<Action> {
+  private func updateVideo() -> Effect<Action> {
     .run { send in
       let videos = try await networkClient.getVideos()
       await send(.videoChanged(videos.first))
     }
   }
 
-  private func reloadGroups() -> EffectTask<Action> {
+  private func reloadGroups() -> Effect<Action> {
     .run { send in
       let groups = try await todayClient.getGroups()
       await send(.groupsLoaded(groups))

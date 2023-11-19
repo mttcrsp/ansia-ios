@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import Core
 
-struct RootReducer: ReducerProtocol {
+struct RootReducer: Reducer {
   enum Content: Equatable {
     case loading
     case failure
@@ -34,7 +34,7 @@ struct RootReducer: ReducerProtocol {
   @Dependency(\.recentsClient) var recentsClient
   @Dependency(\.setupClient) var setupClient
 
-  var body: some ReducerProtocol<State, Action> {
+  var body: some ReducerOf<Self> {
     Reduce(core)
       .ifLet(\.today, action: /Action.today) {
         TodayReducer()
@@ -53,7 +53,7 @@ struct RootReducer: ReducerProtocol {
     }
   }
 
-  private func core(_ state: inout State, action: Action) -> EffectTask<Action> {
+  private func core(_ state: inout State, action: Action) -> Effect<Action> {
     switch action {
     case .didLoad:
       recentsClient.startMonitoring()
@@ -89,7 +89,7 @@ struct RootReducer: ReducerProtocol {
     }
   }
 
-  private func performSetup() -> EffectTask<Action> {
+  private func performSetup() -> Effect<Action> {
     .run { send in
       try await setupClient.perform()
       await send(.setupCompleted(true))

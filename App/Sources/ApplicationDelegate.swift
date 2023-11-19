@@ -9,7 +9,9 @@ final class ApplicationDelegate: UIResponder, UIApplicationDelegate {
   func application(_: UIApplication, didFinishLaunchingWithOptions _: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
     AppearanceManager.shared.performConfiguration()
 
-    let rootStore = Store(initialState: RootReducer.State(), reducer: RootReducer())
+    let rootStore = Store(initialState: RootReducer.State()) {
+      RootReducer()
+    }
     let rootViewController = RootViewController(store: rootStore)
 
     window = UIWindow()

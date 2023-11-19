@@ -32,7 +32,7 @@ final class SettingsViewController: UITableViewController {
   private weak var regionViewController: SettingsRegionViewController?
 
   init(store: StoreOf<SettingsReducer>) {
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     super.init(style: .grouped)
     clearsSelectionOnViewWillAppear = true
     hidesBottomBarWhenPushed = true

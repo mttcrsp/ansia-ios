@@ -11,7 +11,7 @@ final class OnboardingViewController: CrossDissolveViewController {
   private weak var errorViewController: ErrorViewController?
 
   init(store: StoreOf<OnboardingReducer>) {
-    viewStore = ViewStore(store)
+    viewStore = ViewStore(store, observe: { $0 })
     super.init(nibName: nil, bundle: nil)
   }
 
