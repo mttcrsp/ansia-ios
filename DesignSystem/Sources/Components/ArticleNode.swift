@@ -61,10 +61,9 @@ public final class ArticleNode: ASDisplayNode {
 
   private lazy var imageNode: ASNetworkImageNode = {
     let node = ASNetworkImageNode()
-    node.url = configuration.imageURL
     node.backgroundColor = .quaternarySystemFill
-    node.imageModificationBlock = FacesVisibilityImageModifer()
-      .image(1 / imageAspectRatio)
+    node.delegate = self
+    node.url = configuration.imageURL
     return node
   }()
 
@@ -257,6 +256,20 @@ extension ArticleNode {
   }
 }
 
-func ImageModificationBlock(image _: UIImage, traitCollection _: ASPrimitiveTraitCollection) -> UIImage? {
-  nil
+extension ArticleNode: ASNetworkImageNodeDelegate {
+  public func imageNode(_ imageNode: ASNetworkImageNode, didLoad image: UIImage) {
+    DispatchQueue.global().async { [weak self] in
+      if let self, let cgImage = image.cgImage {
+        FacesDetectionClient().perform(
+          FacesDetectionClient.Request(cgImage: cgImage, ratio: imageAspectRatio)
+        ) { [weak imageNode] result in
+          DispatchQueue.main.async {
+            if let imageNode, case let .success(response) = result {
+              imageNode.cropRect.origin.y = response.smartCroppingRect.minY / image.size.height
+            }
+          }
+        }
+      }
+    }
+  }
 }

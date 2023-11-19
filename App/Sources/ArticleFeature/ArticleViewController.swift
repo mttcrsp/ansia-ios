@@ -33,7 +33,6 @@ class ArticleViewController: ASDKViewController<ASScrollNode> {
     let imageNode = ASNetworkImageNode()
     imageNode.contentMode = .scaleAspectFill
     imageNode.delegate = self
-    imageNode.imageModificationBlock = FacesVisibilityImageModifer().image(3 / 2)
     imageNode.url = viewStore.article.imageURL
     imageNode.imageModificationBlock
 
@@ -183,7 +182,21 @@ class ArticleViewController: ASDKViewController<ASScrollNode> {
 }
 
 extension ArticleViewController: ASNetworkImageNodeDelegate {
-  func imageNode(_ imageNode: ASNetworkImageNode, didLoad _: UIImage) {
+  func imageNode(_ imageNode: ASNetworkImageNode, didLoad image: UIImage) {
     imageZoom.attach(to: imageNode.view)
+
+    DispatchQueue.global().async {
+      if let cgImage = image.cgImage {
+        FacesDetectionClient().perform(
+          FacesDetectionClient.Request(cgImage: cgImage, ratio: 3 / 2)
+        ) { [weak imageNode] result in
+          DispatchQueue.main.async {
+            if let imageNode, case let .success(response) = result {
+              imageNode.cropRect.origin.y = response.smartCroppingRect.minY / image.size.height
+            }
+          }
+        }
+      }
+    }
   }
 }
