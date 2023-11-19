@@ -63,6 +63,7 @@ public final class ArticleNode: ASDisplayNode {
     let node = ASNetworkImageNode()
     node.url = configuration.imageURL
     node.backgroundColor = .quaternarySystemFill
+//    node.imageModificationBlock = ASImageNodeTintColorModificationBlock(<#T##color: UIColor##UIColor#>)
     return node
   }()
 
@@ -109,10 +110,12 @@ extension ArticleNode {
         ).styled { style in
           style.flexShrink = 1
         },
-        ASRatioLayoutSpec(ratio: 1, child: imageNode)
-          .styled { style in
-            style.preferredLayoutSize.height = .init(unit: .points, value: 95)
-          },
+        ASRatioLayoutSpec(
+          ratio: imageAspectRatio(for: configuration.style),
+          child: imageNode
+        ).styled { style in
+          style.preferredLayoutSize.height = .init(unit: .points, value: 95)
+        },
       ]
     )
   }
@@ -125,7 +128,10 @@ extension ArticleNode {
       alignItems: .start,
       children: [
         ASBackgroundLayoutSpec(
-          child: ASRatioLayoutSpec(ratio: 2 / 3, child: imageNode),
+          child: ASRatioLayoutSpec(
+            ratio: imageAspectRatio(for: configuration.style),
+            child: imageNode
+          ),
           background: imageBackgroundNode
         ),
         ASInsetLayoutSpec(
@@ -150,7 +156,7 @@ extension ArticleNode {
       alignItems: .start,
       children: [
         ASRatioLayoutSpec(
-          ratio: 2 / 3,
+          ratio: imageAspectRatio(for: configuration.style),
           child: imageNode.styled { style in
             style.preferredLayoutSize.height = .init(unit: .points, value: 140)
           }
@@ -172,7 +178,7 @@ extension ArticleNode {
       alignItems: .center,
       children: [
         ASRatioLayoutSpec(
-          ratio: 1,
+          ratio: imageAspectRatio(for: configuration.style),
           child: imageNode
         ).styled { style in
           style.preferredLayoutSize.height = .init(unit: .points, value: 72)
@@ -210,6 +216,17 @@ extension ArticleNode {
     )
   }
 
+  private func imageAspectRatio(for style: Configuration.Style) -> CGFloat {
+    switch style {
+    case .fullWidth, .large:
+      return 2 / 3
+    case .default, .small:
+      return 1
+    case .largeText, .text: // image not displayed
+      return 1
+    }
+  }
+
   private var titleAttributes: [NSAttributedString.Key: Any] {
     switch configuration.style {
     case .fullWidth, .large:
@@ -237,4 +254,8 @@ extension ArticleNode {
       ]
     }
   }
+}
+
+func ImageModificationBlock(image _: UIImage, traitCollection _: ASPrimitiveTraitCollection) -> UIImage? {
+  nil
 }

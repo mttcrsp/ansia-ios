@@ -46,7 +46,7 @@ final class HorizontalArticlesNode: ASDisplayNode {
         spacing: 16,
         justifyContent: .start,
         alignItems: .start,
-        children: self.columns
+        children: columns
           .filter { node in
             !node.configuration.isEmpty
           }

@@ -132,10 +132,10 @@ private extension NotificationsClient {
 
     async let isVideoDayEnabled = hasRequest(VideoNotificationRequest.day)
     async let isVideoNightEnabled = hasRequest(VideoNotificationRequest.night)
-    return .enabled(
+    return await .enabled(
       .init(
-        isVideoDayEnabled: await isVideoDayEnabled,
-        isVideoNightEnabled: await isVideoNightEnabled
+        isVideoDayEnabled: isVideoDayEnabled,
+        isVideoNightEnabled: isVideoNightEnabled
       )
     )
   }

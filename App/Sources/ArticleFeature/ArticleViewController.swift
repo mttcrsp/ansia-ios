@@ -34,6 +34,7 @@ class ArticleViewController: ASDKViewController<ASScrollNode> {
     imageNode.contentMode = .scaleAspectFill
     imageNode.delegate = self
     imageNode.url = viewStore.article.imageURL
+    imageNode.imageModificationBlock
 
     let titleNode = ASTextNode()
     titleNode.attributedText = NSAttributedString(

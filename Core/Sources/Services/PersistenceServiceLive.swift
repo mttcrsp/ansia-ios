@@ -62,7 +62,7 @@ public extension PersistenceServiceLive {
           completion(.failure(error))
         case let .success(database):
           do {
-            completion(.success(try read.perform(in: database)))
+            try completion(.success(read.perform(in: database)))
           } catch {
             completion(.failure(error))
           }
