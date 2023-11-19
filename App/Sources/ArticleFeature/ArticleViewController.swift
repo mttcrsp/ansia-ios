@@ -34,7 +34,7 @@ class ArticleViewController: ASDKViewController<ASScrollNode> {
     imageNode.contentMode = .scaleAspectFill
     imageNode.delegate = self
     imageNode.url = viewStore.article.imageURL
-    imageNode.imageModificationBlock
+    imageNode.isHidden = true
 
     let titleNode = ASTextNode()
     titleNode.attributedText = NSAttributedString(
@@ -189,11 +189,14 @@ extension ArticleViewController: ASNetworkImageNodeDelegate {
       if let cgImage = image.cgImage {
         FacesDetectionClient().perform(
           FacesDetectionClient.Request(cgImage: cgImage, ratio: 3 / 2)
-        ) { [weak imageNode] result in
-          DispatchQueue.main.async {
-            if let imageNode, case let .success(response) = result {
-              imageNode.cropRect.origin.y = response.smartCroppingRect.minY / image.size.height
+        ) { [weak imageNode] smartCropRect in
+          if let imageNode, let smartCropRect {
+            DispatchQueue.main.async {
+              imageNode.isHidden = false
+              imageNode.cropRect.origin = smartCropRect.origin
             }
+          } else {
+            imageNode?.isHidden = false
           }
         }
       }

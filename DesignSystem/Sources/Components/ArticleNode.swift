@@ -63,6 +63,7 @@ public final class ArticleNode: ASDisplayNode {
     let node = ASNetworkImageNode()
     node.backgroundColor = .quaternarySystemFill
     node.delegate = self
+    node.isHidden = true
     node.url = configuration.imageURL
     return node
   }()
@@ -262,11 +263,14 @@ extension ArticleNode: ASNetworkImageNodeDelegate {
       if let self, let cgImage = image.cgImage {
         FacesDetectionClient().perform(
           FacesDetectionClient.Request(cgImage: cgImage, ratio: imageAspectRatio)
-        ) { [weak imageNode] result in
-          DispatchQueue.main.async {
-            if let imageNode, case let .success(response) = result {
-              imageNode.cropRect.origin.y = response.smartCroppingRect.minY / image.size.height
+        ) { [weak imageNode] smartCroppingRect in
+          if let imageNode, let smartCroppingRect {
+            DispatchQueue.main.async {
+              imageNode.isHidden = false
+              imageNode.cropRect.origin = smartCroppingRect.origin
             }
+          } else {
+            imageNode?.isHidden = false
           }
         }
       }
