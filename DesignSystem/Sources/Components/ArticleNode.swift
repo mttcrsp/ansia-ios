@@ -63,7 +63,8 @@ public final class ArticleNode: ASDisplayNode {
     let node = ASNetworkImageNode()
     node.url = configuration.imageURL
     node.backgroundColor = .quaternarySystemFill
-//    node.imageModificationBlock = ASImageNodeTintColorModificationBlock(<#T##color: UIColor##UIColor#>)
+    node.imageModificationBlock = FacesVisibilityImageModifer()
+      .image(1 / imageAspectRatio)
     return node
   }()
 
@@ -111,7 +112,7 @@ extension ArticleNode {
           style.flexShrink = 1
         },
         ASRatioLayoutSpec(
-          ratio: imageAspectRatio(for: configuration.style),
+          ratio: imageAspectRatio,
           child: imageNode
         ).styled { style in
           style.preferredLayoutSize.height = .init(unit: .points, value: 95)
@@ -129,7 +130,7 @@ extension ArticleNode {
       children: [
         ASBackgroundLayoutSpec(
           child: ASRatioLayoutSpec(
-            ratio: imageAspectRatio(for: configuration.style),
+            ratio: imageAspectRatio,
             child: imageNode
           ),
           background: imageBackgroundNode
@@ -156,7 +157,7 @@ extension ArticleNode {
       alignItems: .start,
       children: [
         ASRatioLayoutSpec(
-          ratio: imageAspectRatio(for: configuration.style),
+          ratio: imageAspectRatio,
           child: imageNode.styled { style in
             style.preferredLayoutSize.height = .init(unit: .points, value: 140)
           }
@@ -178,7 +179,7 @@ extension ArticleNode {
       alignItems: .center,
       children: [
         ASRatioLayoutSpec(
-          ratio: imageAspectRatio(for: configuration.style),
+          ratio: imageAspectRatio,
           child: imageNode
         ).styled { style in
           style.preferredLayoutSize.height = .init(unit: .points, value: 72)
@@ -216,8 +217,8 @@ extension ArticleNode {
     )
   }
 
-  private func imageAspectRatio(for style: Configuration.Style) -> CGFloat {
-    switch style {
+  private var imageAspectRatio: CGFloat {
+    switch configuration.style {
     case .fullWidth, .large:
       return 2 / 3
     case .default, .small:

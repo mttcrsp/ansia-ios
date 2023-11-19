@@ -33,6 +33,7 @@ class ArticleViewController: ASDKViewController<ASScrollNode> {
     let imageNode = ASNetworkImageNode()
     imageNode.contentMode = .scaleAspectFill
     imageNode.delegate = self
+    imageNode.imageModificationBlock = FacesVisibilityImageModifer().image(3 / 2)
     imageNode.url = viewStore.article.imageURL
     imageNode.imageModificationBlock
 
