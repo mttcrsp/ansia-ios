@@ -91,6 +91,10 @@ targets:
     dependencies:
       - target: Core
       - target: DesignSystem
+      - sdk: "SwiftUI.framework"
+        weak: true
+      - sdk: "WidgetKit.framework"
+        weak: true
     settings:
       INFOPLIST_FILE: Widget/Resources/Info.plist
       PRODUCT_BUNDLE_IDENTIFIER: com.mttcrsp.ansia.widget
