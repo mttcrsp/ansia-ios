@@ -1,7 +1,7 @@
 import Core
 import WidgetKit
 
-struct ArticlesProvider: TimelineProvider {
+struct WidgetArticlesProvider: TimelineProvider {
   struct Entry: TimelineEntry {
     var date = Date()
     var result: Result<(String, [Item]), Error>
@@ -10,6 +10,8 @@ struct ArticlesProvider: TimelineProvider {
   struct Item {
     var id: String
     var title: String
+    var description: String?
+    var imageURL: URL?
   }
 
   enum UnexpectedError: Error {
@@ -82,10 +84,15 @@ struct ArticlesProvider: TimelineProvider {
   }
 }
 
-extension ArticlesProvider.Item: Identifiable {}
+extension WidgetArticlesProvider.Item: Identifiable {}
 
-private extension ArticlesProvider.Item {
+private extension WidgetArticlesProvider.Item {
   init(article: Article) {
-    self.init(id: article.articleID.rawValue, title: article.title)
+    self.init(
+      id: article.articleID.rawValue,
+      title: article.title,
+      description: article.description,
+      imageURL: article.imageURL
+    )
   }
 }

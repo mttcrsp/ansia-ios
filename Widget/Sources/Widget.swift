@@ -6,8 +6,8 @@ import WidgetKit
 @main
 struct Widget: SwiftUI.Widget {
   var body: some WidgetConfiguration {
-    StaticConfiguration(kind: "article", provider: ArticlesProvider(feedSlug: .main)) { entry in
-      ArticlesView(entry: entry)
+    StaticConfiguration(kind: "feed", provider: WidgetArticlesProvider(feedSlug: .main)) { entry in
+      WidgetArticlesView(entry: entry)
     }
     .configurationDisplayName("Principali")
     .description("Le ultime notizie dalla sezione Principali")
