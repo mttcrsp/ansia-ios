@@ -8,12 +8,9 @@ public struct SetupClient {
 public extension SetupClient {
   init(fileManager: FileManagerProtocol, networkService: NetworkService, persistenceService: PersistenceService) {
     perform = {
-      let applicationSupportURL = try fileManager.url(
-        for: .applicationSupportDirectory,
-        in: .userDomainMask,
-        appropriateFor: nil,
-        create: true
-      )
+      let applicationSupportURL = fileManager.containerURL(
+        forSecurityApplicationGroupIdentifier: "group.com.mttcrsp.ansia"
+      )!
       let applicationDatabaseURL = applicationSupportURL
         .appendingPathComponent("db")
         .appendingPathExtension("sqlite")

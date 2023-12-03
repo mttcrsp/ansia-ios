@@ -27,6 +27,7 @@ targets:
     dependencies:
       - target: Core
       - target: DesignSystem
+      - target: Widget
       - framework: Vendor/CasePaths.xcframework
       - framework: Vendor/Clocks.xcframework
       - framework: Vendor/CombineSchedulers.xcframework
@@ -45,6 +46,8 @@ targets:
       coverageTargets:
         - App
       gatherCoverageData: true
+    settings:
+      PRODUCT_BUNDLE_IDENTIFIER: com.mttcrsp.ansia
     preBuildScripts:
       - script: make run_swiftformat
         name: SwiftFormat
@@ -83,6 +86,7 @@ targets:
 
   Widget:
     type: app-extension
+    subtype: widgetkit-extension
     platform: iOS
     deploymentTarget: "16.2"
     sources:
@@ -97,7 +101,6 @@ targets:
         weak: true
     settings:
       INFOPLIST_FILE: Widget/Resources/Info.plist
-      PRODUCT_BUNDLE_IDENTIFIER: com.mttcrsp.ansia.widget
     preBuildScripts:
       - script: make run_swiftformat
         name: SwiftFormat

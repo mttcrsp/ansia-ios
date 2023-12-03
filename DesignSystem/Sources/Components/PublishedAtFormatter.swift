@@ -8,7 +8,7 @@ public final class PublishedAtFormatter {
   }()
 
   public init() {}
-  public func attributedString(for date: Date) -> NSAttributedString? {
+  public func attributedString(for date: Date) -> NSAttributedString {
     let elapsed = Self.formatter
       .localizedString(for: date, relativeTo: Date())
       .uppercased(with: .autoupdatingCurrent)
