@@ -64,7 +64,7 @@ struct ArticlesProvider: TimelineProvider {
         do {
           let feedQuery = GetFeedBySlug(slug: feedSlug)
           let feed = try await persistenceService.perform(feedQuery)
-          let articlesQuery = GetArticlesByFeed(slug: feedSlug, limit: 2)
+          let articlesQuery = GetArticlesByFeed(slug: feedSlug, limit: 3)
           let articles = try await persistenceService.perform(articlesQuery)
           if let feed {
             result = .success((feed.title, articles.map(Item.init)))

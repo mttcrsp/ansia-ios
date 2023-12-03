@@ -13,7 +13,7 @@ struct ArticlesView: View {
         .foregroundStyle(DesignSystemAsset.secondaryLabel.swiftUIColor)
         .textCase(.uppercase)
     case let .success((title, items)):
-      VStack(alignment: .leading, spacing: 0) {
+      VStack(alignment: .leading, spacing: 8) {
         HStack(alignment: .lastTextBaseline) {
           Text(title)
             .font(FontFamily.NYTFranklin.bold.swiftUIFont(size: 15))
@@ -22,20 +22,19 @@ struct ArticlesView: View {
             .font(FontFamily.NYTFranklin.medium.swiftUIFont(size: 12))
             .foregroundStyle(DesignSystemAsset.live.swiftUIColor)
         }
-        .padding(.bottom, 8)
         Divider()
-          .padding(.bottom, 8)
-        ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
-          Text(item.title)
-            .font(
-              index == 0
-                ? FontFamily.NYTCheltenham.bold.swiftUIFont(size: 17)
-                : FontFamily.NYTCheltenham.book.swiftUIFont(size: 15)
-            )
-            .lineLimit(2)
-            .padding(.bottom, 4)
+        VStack(alignment: .leading, spacing: 4) {
+          ForEach(Array(items.enumerated()), id: \.element.id) { index, item in
+            Text(item.title)
+              .font(
+                index == 0
+                  ? FontFamily.NYTCheltenham.bold.swiftUIFont(size: 17)
+                  : FontFamily.NYTCheltenham.book.swiftUIFont(size: 15)
+              )
+              .lineLimit(2)
+              .fixedSize(horizontal: false, vertical: index != items.count - 1)
+          }
         }
-        Spacer(minLength: 0)
       }
       .foregroundStyle(
         DesignSystemAsset.label.swiftUIColor
@@ -43,6 +42,7 @@ struct ArticlesView: View {
       .backport.widgetBackground(
         DesignSystemAsset.background.swiftUIColor
       )
+      Spacer(minLength: 0)
     }
   }
 
